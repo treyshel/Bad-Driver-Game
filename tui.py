@@ -56,6 +56,7 @@ def run(init, update, view, rate=None):
 
     curses.wrapper(helper)
 
+
 def key_to_action(key):
     '''String -> String
 
@@ -66,10 +67,6 @@ def key_to_action(key):
     'left'
     >>> key_to_action('KEY_RIGHT')
     'right'
-    >>> key_to_action('KEY_UP')
-    'up'
-    >>> key_to_action('KEY_DOWN')
-    'down'
     >>> key_to_action('R')
     'restart'
     >>> key_to_action('r')
@@ -78,10 +75,12 @@ def key_to_action(key):
     'tick'
     >>> key_to_action('anything else')
     '''
-    return 'tick' # REPLACE FUNCTION BODY WITH YOUR CODE
+    return 'tick'  # REPLACE FUNCTION BODY WITH YOUR CODE
+
 
 def update(key, state):
     return snake.update(state, key_to_action(key))
+
 
 def view_cell(state, x, y):
     if (x, y) in state['snake']:
@@ -91,11 +90,14 @@ def view_cell(state, x, y):
     else:
         return ' '
 
+
 def view(state, width, height):
     return 'Score: {} {}\n{}'.format(
         state['score'], 'DEAD' if not state['alive'] else '', '\n'.join(
-            '|' +  ''.join(view_cell(state, x, y) for x in range(state['width'])) + '|'
+            '|' + ''.join(
+                view_cell(state, x, y) for x in range(state['width'])) + '|'
             for y in range(state['height'])))
+
 
 def main():
     run(snake.initial_state(50, 20), update, view, 15)
