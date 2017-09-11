@@ -73,9 +73,6 @@ def key_to_action(key):
     'tick'
     >>> key_to_action('anything else')
     '''
-<<<<<<< HEAD
-    return 'tick'  # REPLACE FUNCTION BODY WITH YOUR CODE
-=======
     if key == 'KEY_LEFT':
         return 'left'
     elif key == 'KEY_RIGHT':
@@ -86,12 +83,10 @@ def key_to_action(key):
         return 'tick'
     else:
         return None
->>>>>>> 229dc31b2db2a9b539d2a11ff8f1257a0e61f269
 
 
 def update(key, state):
     return driver.update(state, key_to_action(key))
-
 
 
 def view_cell(state, x, y):
