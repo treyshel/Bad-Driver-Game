@@ -92,7 +92,13 @@ def key_to_action(key):
 def update(key, state):
     # return driver.update(state, key_to_action(key))
     # HEY GUYS REMEMBER TO ADD IN A KEY PARAMETER TO TELL THE CAR HOW TO MOVE
-    return state.game_update(key_to_action(key))
+    state = state.game_update(key_to_action(key))
+    if state.keep_going():
+        return state
+    else:
+        print('GAME OVER')
+        time.sleep(1.5)
+        exit()
 
 
 # def view_cell(state, x, y):
