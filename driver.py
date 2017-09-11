@@ -5,61 +5,53 @@ import itertools
 class Driver:
     ''' class for driver game '''
 
-    def __init__(self, grid):
-        ''' (Grid) -> '''
-        self.alive = True
-        self.car = width // 2
-        self.score = 0
-        self.grid = grid
-
-
-class Grid:
-    '''  class to make the map for the car to drive on '''
-
     def __init__(self, width, height, roadwidth):
-        ''' (int, int) -> '''
+        ''' (int, int, int) -> '''
         self.width = width
         self.height = height
         self.roadwidth = roadwidth
         left = (width - roadwidth) // 2
         right = width - left - roadwidth
-        self.posns = [(left, roadwidth, right) for _ in range(height)]
+        self.grid = [(left, roadwidth, right) for _ in range(height)]
+
+        self.alive = True
+        self.car = width // 2
+        self.score = 0
 
     def __str__(self):
         ''' returns string version of grid '''
         s = ''
-        for line in self.posns:
+        for line in self.grid:
             s += 'I{}^{}^{}I\n'.format(line[0] * '.', line[1] * ' ',
                                        line[2] * '.')
         # take this part out later
-        x, rw, _ = self.posns[-1]
+        x, rw, _ = self.grid[-1]
         x = x + (rw // 2) + 1
         s += '{}:0:'.format(x * ' ')
         return s
 
     def update(self):
         ' updates the grid with a new value and removes old value '
-        self.posns.pop()
+        self.grid.pop()
         move = random.choice((-1, 0, 1))
-        l, rw, r = self.posns[0]
+        l, rw, r = self.grid[0]
         left = l + move
         right = self.width - left - self.roadwidth
         if left >= 0 and right >= 0:
-            self.posns.insert(0, (left, self.roadwidth, right))
+            self.grid.insert(0, (left, self.roadwidth, right))
         else:
-            self.posns.insert(0, (l, rw, r))
+            self.grid.insert(0, (l, rw, r))
 
 
-def initial_state(width, height):
-    return {
-        'alive': True,
-        'car': [(0, 0)],
-        'score': 0,
-        'width': width,
-        'height': height,
-        'direction': 'right'
-    }
-
+# def initial_state(width, height):
+#     return {
+#         'alive': True,
+#         'car': [(0, 0)],
+#         'score': 0,
+#         'width': width,
+#         'height': height,
+#         'direction': 'right'
+#     }
 
 # def new_head_pos(state, dx, dy):
 #     snake = state['snake']
