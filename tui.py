@@ -1,6 +1,4 @@
-import curses
-import snake
-import time
+import curses, driver, time
 
 
 def run(init, update, view, rate=None):
@@ -60,7 +58,7 @@ def run(init, update, view, rate=None):
 def key_to_action(key):
     '''String -> String
 
-    Translates `key` into the appropriate action string for the snake game.
+    Translates `key` into the appropriate action string for the driver game.
     The examples outline the mapping between keys and actions.
 
     >>> key_to_action('KEY_LEFT')
@@ -88,11 +86,11 @@ def key_to_action(key):
 
 
 def update(key, state):
-    return snake.update(state, key_to_action(key))
+    return driver.update(state, key_to_action(key))
 
 
 def view_cell(state, x, y):
-    if (x, y) in state['snake']:
+    if (x, y) in state['driver']:
         return 'S'
     elif (x, y) == state['apple']:
         return '@'
@@ -109,7 +107,7 @@ def view(state, width, height):
 
 
 def main():
-    run(snake.initial_state(50, 20), update, view, 15)
+    run(driver.initial_state(50, 20), update, view, 15)
 
 
 if __name__ == '__main__':
