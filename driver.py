@@ -73,6 +73,21 @@ class Driver:
         return self
 
 
+def is_dead(car, width, height):
+    ''' (int, int), (int, int), (int, int) -> Bool
+    Function will see if the car is hitting the edge or if it is
+    '''
+    (x, y) = self.car
+    w = self.width
+    h = self.height
+    if x == w:
+        return False
+    elif y == h:
+        return False
+    else:
+        return True
+
+
 # def initial_state(width, height):
 #     return {
 #         'alive': True,
