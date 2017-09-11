@@ -28,10 +28,6 @@ def movement_from(direction):
         dx, dy = -1, 0
     elif direction == 'right':
         dx, dy = 1, 0
-    elif direction == 'up':
-        dx, dy = 0, -1
-    elif direction == 'down':
-        dx, dy = 0, 1
 
     return dx, dy
 
@@ -71,7 +67,11 @@ def is_on_apple(head_x, head_y, apple_x, apple_y):
     >>> is_on_apple(2, 0, 1, 0)
     False
     '''
-    return False # REPLACE FUNCTION BODY WITH YOUR CODE
+    if (head_x == apple_x) and (head_y == apple_y):
+        return True
+
+    else:
+        return False
 
 
 def is_on_self(state):
@@ -97,14 +97,11 @@ def change_direction(current_direction, new_direction):
     'left'
     >>> change_direction('right', 'left')
     'right'
-    >>> change_direction('up', 'left')
-    'left'
-    >>> change_direction('right', 'down')
-    'down'
-    >>> change_direction('up', 'down')
-    'up'
     '''
-    return current_direction # REPLACE FUNCTION BODY WITH YOUR CODE
+    if current_direction == 'left' and new_direction == 'right':
+        return current_direction
+    elif current_direction == 'right' and new_direction == 'left':
+        return current_direction
 
 
 def update(state, action):
