@@ -71,10 +71,9 @@ class Driver:
         else:
             self.grid.insert(0, (l, rw, r))
         return self
-<<<<<<< HEAD
 
 
-def is_dead(car, width, height):
+def is_dead(Driver):
     ''' (int, int), (int, int), (int, int) -> Bool
     Function will see if the car is hitting the edge or if it is
     '''
@@ -87,104 +86,3 @@ def is_dead(car, width, height):
         return False
     else:
         return True
-
-
-# def initial_state(width, height):
-#     return {
-#         'alive': True,
-#         'car': [(0, 0)],
-#         'score': 0,
-#         'width': width,
-#         'height': height,
-#         'direction': 'right'
-#     }
-
-# def new_head_pos(state, dx, dy):
-#     snake = state['snake']
-#     head_x = state['width'] - 1 if snake[0][0] + dx < 0 else (
-#         snake[0][0] + dx) % state['width']
-#     head_y = state['height'] - 1 if snake[0][1] + dy < 0 else (
-#         snake[0][1] + dy) % state['height']
-#     return head_x, head_y
-
-# def movement_from(direction):
-#     if direction == 'left':
-#         dx, dy = -1, 0
-#     elif direction == 'right':
-#         dx, dy = 1, 0
-
-#     return dx, dy
-
-# def move(state, direction):
-#     dx, dy = movement_from(direction)
-#     head_pos = new_head_pos(state, dx, dy)
-
-#     if is_on_apple(state['snake'][0][0], state['snake'][0][1],
-#                    state['apple'][0], state['apple'][1]):
-#         state['snake'] = [head_pos] + state['snake']
-#         state['score'] += len(state['snake'])
-#         new_apple(state)
-#     else:
-#         state['snake'] = [head_pos] + state['snake'][:-1]
-
-#     return state
-
-# def is_crash(head_x, head_y, apple_x, apple_y):
-#     '''(Int, Int, Int, Int) -> Bool
-
-#     Returns Tru
-
-#     >>> is_on_apple(4, 3, 4, 3)
-#     True
-#     >>> is_on_apple(0, 1, 1, 0)
-#     False
-#     >>> is_on_apple(1, 1, 1, 1)
-#     True
-#     >>> is_on_apple(1, 2, 3, 4)
-#     False
-#     >>> is_on_apple(0, 1, 0, 1)
-#     True
-#     >>> is_on_apple(0, 2, 0, 1)
-#     False
-#     >>> is_on_apple(2, 0, 1, 0)
-#     False
-#     '''
-#     if (head_x == apple_x) and (head_y == apple_y):
-#         return True
-
-#     else:
-#         return False
-
-# def change_direction(current_direction, new_direction):
-#     ''' (String, String) -> String
-
-#     Returns the next direction the snake should be heading.
-#     If the new direction would turn the snake completely around,
-#     the old direction is maintained.
-
-#     >>> change_direction('left', 'right')
-#     'left'
-#     >>> change_direction('right', 'left')
-#     'right'
-#     '''
-#     if current_direction == 'left' and new_direction == 'right':
-#         return current_direction
-#     elif current_direction == 'right' and new_direction == 'left':
-#         return current_direction
-
-# def update(state, action):
-#     if action == 'restart':
-#         return initial_state(state['width'], state['height'])
-#     if state['alive']:
-#         if is_on_self(state):
-#             state['alive'] = False
-#             return state
-#         elif action == 'tick':
-#             return move(state, state['direction'])
-#         else:
-#             state['direction'] = change_direction(state['direction'], action)
-#             return state
-#     else:
-#         return state
-=======
->>>>>>> 79a251fff7d9855f804fa426295e7ee6acb9787d
