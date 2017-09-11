@@ -77,6 +77,10 @@ def key_to_action(key):
         return 'left'
     elif key == 'KEY_RIGHT':
         return 'right'
+    elif key == 'KEY_UP':
+        return 'up'
+    elif key == 'KEY_DOWN':
+        return 'down'
     elif key == 'r' or key == 'R':
         return 'restart'
     elif key == 'TICK':
@@ -86,26 +90,24 @@ def key_to_action(key):
 
 
 def update(key, state):
-    return driver.update(state, key_to_action(key))
+    # return driver.update(state, key_to_action(key))
+    # HEY GUYS REMEMBER TO ADD IN A KEY PARAMETER TO TELL THE CAR HOW TO MOVE
+    return state.game_update(key_to_action(key))
 
 
-def view_cell(state, x, y):
-    if (x, y) in state['driver']:
-        return ':0:'
-    else:
-        return ' '
+# def view_cell(state, x, y):
+#     if (x, y) in state['driver']:
+#         return ':0:'
+#     else:
+#         return ' '
 
 
-def view(state):
-    return 'Score: {} {}\n{}'.format(
-        state['score'], 'DEAD' if not state['alive'] else '', '\n'.join(
-            '|' + ''.join(
-                view_cell(state, x, y) for x in range(state['width'])) + '|'
-            for y in range(state['height'])))
+def view(state, width, height):
+    return str(state)
 
 
 def main():
-    run(driver.Driver(driver.Grid(16, 20, 8)), update, view, 15)
+    run(driver.Driver(50, 20, 25), update, view, 15)
 
 
 if __name__ == '__main__':
