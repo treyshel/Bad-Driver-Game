@@ -13,7 +13,6 @@ class Driver:
         left = (width - roadwidth) // 2
         right = width - left - roadwidth
         self.grid = [(left, roadwidth, right) for _ in range(height)]
-
         self.alive = True
         self.car = (width // 2 - 1, 2)
         self.score = 0
@@ -21,7 +20,9 @@ class Driver:
 
     def __str__(self):
         ''' returns string version of grid '''
-        s = 'LEVEL: {} | SCORE: {}\n'.format(self.level, self.score)
+        s = 'LEVEL: {} 🚁 HELI-ESCAPE 🚁 SCORE: {}'.format(
+            self.level, self.score).center(self.width)
+        s += '\n'
         slice_top = self.grid[:(-self.car[1])]
         _car = self.grid[(-self.car[1])]
         slice_bottom = self.grid[(-self.car[1]):]
@@ -32,7 +33,7 @@ class Driver:
 
         l = self.car[0] - _car[0] - 1
         r = _car[1] - l - 2
-        c = '{}🚗{}'.format(' ' * l, ' ' * r)
+        c = '{}🚁{}'.format(' ' * l, ' ' * r)
         s += 'I{}^{}^{}I\n'.format(_car[0] * '.', c, _car[2] * '.')
 
         for line in slice_bottom:
@@ -56,7 +57,6 @@ class Driver:
         elif key == 'down':
             y = max(y - 1, 2)
         self.car = (x, y)
-
         self.score += 1
         if not (self.score % 100):
             self.level += 1
