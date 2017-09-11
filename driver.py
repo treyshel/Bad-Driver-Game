@@ -71,6 +71,7 @@ class Driver:
         else:
             self.grid.insert(0, (l, rw, r))
         return self
+<<<<<<< HEAD
 
 
 def is_dead(car, width, height):
@@ -185,3 +186,5 @@ def is_dead(car, width, height):
 #             return state
 #     else:
 #         return state
+=======
+>>>>>>> 79a251fff7d9855f804fa426295e7ee6acb9787d
