@@ -15,23 +15,52 @@ class Driver:
         self.grid = [(left, roadwidth, right) for _ in range(height)]
 
         self.alive = True
-        self.car = width // 2
+        self.car = (width // 2 - 1, 2)
         self.score = 0
+        self.level = 1
 
     def __str__(self):
         ''' returns string version of grid '''
-        s = ''
-        for line in self.grid:
+        s = 'LEVEL: {} | SCORE: {}\n'.format(self.level, self.score)
+        slice_top = self.grid[:(-self.car[1])]
+        _car = self.grid[(-self.car[1])]
+        slice_bottom = self.grid[(-self.car[1]):]
+
+        for line in slice_top:
             s += 'I{}^{}^{}I\n'.format(line[0] * '.', line[1] * ' ',
                                        line[2] * '.')
-        # take this part out later
-        x, rw, _ = self.grid[-1]
-        x = x + (rw // 2) + 1
-        s += '{}:0:'.format(x * ' ')
+
+        l = self.car[0] - _car[0] - 1
+        r = _car[1] - l - 2
+        c = '{}🚗{}'.format(' ' * l, ' ' * r)
+        s += 'I{}^{}^{}I\n'.format(_car[0] * '.', c, _car[2] * '.')
+
+        for line in slice_bottom:
+            s += 'I{}^{}^{}I\n'.format(line[0] * '.', line[1] * ' ',
+                                       line[2] * '.')
+        # print the car
+        s += '{}🚗\n'.format(self.car[0] * ' ')
         return s
 
-    def update(self):
-        ' updates the grid with a new value and removes old value '
+    def game_update(self, key):
+        ''' updates the grid with a new value and removes old value 
+        returns self to completely update the state
+        '''
+        x, y = self.car
+        if key == 'left':
+            x -= 1
+        elif key == 'right':
+            x += 1
+        elif key == 'up':
+            y = min(y + 1, self.height - 2)
+        elif key == 'down':
+            y = max(y - 1, 2)
+        self.car = (x, y)
+
+        self.score += 1
+        if not (self.score % 100):
+            self.level += 1
+            self.roadwidth -= 1
         self.grid.pop()
         move = random.choice((-1, 0, 1))
         l, rw, r = self.grid[0]
@@ -41,6 +70,7 @@ class Driver:
             self.grid.insert(0, (left, self.roadwidth, right))
         else:
             self.grid.insert(0, (l, rw, r))
+        return self
 
 
 # def initial_state(width, height):
