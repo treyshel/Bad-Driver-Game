@@ -91,14 +91,12 @@ def update(key, state):
 
 def view_cell(state, x, y):
     if (x, y) in state['driver']:
-        return 'S'
-    elif (x, y) == state['apple']:
-        return '@'
+        return ':0:'
     else:
         return ' '
 
 
-def view(state, width, height):
+def view(state):
     return 'Score: {} {}\n{}'.format(
         state['score'], 'DEAD' if not state['alive'] else '', '\n'.join(
             '|' + ''.join(
@@ -107,7 +105,7 @@ def view(state, width, height):
 
 
 def main():
-    run(driver.initial_state(50, 20), update, view, 15)
+    run(driver.Driver(driver.Grid(16, 20, 8)), update, view, 15)
 
 
 if __name__ == '__main__':
