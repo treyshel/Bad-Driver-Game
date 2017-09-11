@@ -75,7 +75,16 @@ def key_to_action(key):
     'tick'
     >>> key_to_action('anything else')
     '''
-    return 'tick'  # REPLACE FUNCTION BODY WITH YOUR CODE
+    if key == 'KEY_LEFT':
+        return 'left'
+    elif key == 'KEY_RIGHT':
+        return 'right'
+    elif key == 'r' or key == 'R':
+        return 'restart'
+    elif key == 'TICK':
+        return 'tick'
+    else:
+        return None
 
 
 def update(key, state):
