@@ -79,3 +79,15 @@ class Driver:
         x, y = self.car
         l, road, r = self.grid[-y]
         return x > l and x < (l + road)
+
+    def did_win(self):
+        ''' Driver -> Bool
+        Function will determine if the user has won by checking how
+        much RoadWidth it has, once the RoadWidth gets to 3, the user
+        wins
+        '''
+        x = self.roadwidth
+        if x <= 3:
+            return True
+        else:
+            return False
