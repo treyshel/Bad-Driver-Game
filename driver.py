@@ -20,6 +20,8 @@ class Driver:
         self.level = 1
         self.count = 0
         self.win = False
+        self.alive = True
+        self.quit = False
 
     def __str__(self):
         ''' returns string version of grid '''
@@ -29,9 +31,9 @@ class Driver:
         elif self.roadwidth < 6:
             ch = '.'
         elif self.roadwidth < 8:
-            ch = ':'
+            ch = '+'
         elif self.roadwidth < 12:
-            ch = '*'
+            ch = ':'
 
         s = 'LEVEL: {} 🚁 HELI-ESCAPE 🚁 SCORE: {}'.format(
             self.level, self.score).center(self.width)
@@ -49,9 +51,16 @@ class Driver:
         c = '{}🚁{}'.format(' ' * l, ' ' * r)
         s += 'I{}^{}^{}I\n'.format(_car[0] * ch, c, _car[2] * ch)
 
-        for line in slice_bottom:
+        for line in slice_bottom[:-1]:
             s += 'I{}^{}^{}I\n'.format(line[0] * ch, line[1] * ' ',
                                        line[2] * ch)
+
+        l, c, r = slice_bottom[-1]
+        s += 'I{}^{}^{}I\n'.format(l * ch, c * '!', r * ch)
+
+        if not self.alive:
+            s += '\n\nGAME OVER.... you crashed.'
+
         return s
 
     def game_update(self, key):
@@ -60,6 +69,12 @@ class Driver:
         '''
         if key == 'restart':
             self = restart_game(self.width, self.height, self.startwidth)
+        if key == 'quit':
+            self.quit = True
+            return self
+        if not self.alive:
+            return self
+
         if self.roadwidth < 3:
             self.win = True
         x, y = self.car
@@ -90,16 +105,18 @@ class Driver:
             self.grid.insert(0, (left, self.roadwidth, right))
         else:
             self.grid.insert(0, (l, rw, r))
+        driver_alive(self)
         return self
-
-    def keep_going(self):
-        ''' Driver -> Bool
-        Function will see if the car is hitting the edge or if it is
-        '''
-        x, y = self.car
-        l, road, r = self.grid[-y]
-        return x > l and x < (l + road)
 
 
 def restart_game(width, height, startwidth):
     return Driver(width, height, startwidth)
+
+
+def driver_alive(driver):
+    ''' Driver -> Bool
+    Function will see if the car is hitting the edge or if it is
+    '''
+    x, y = driver.car
+    l, road, r = driver.grid[-y]
+    driver.alive = x > l and x < (l + road)

@@ -34,6 +34,8 @@ def key_to_action(key):
         return 'restart'
     elif key == 'TICK':
         return 'tick'
+    elif key == 'Q' or key == 'q':
+        return 'quit'
     else:
         return None
 
@@ -47,7 +49,7 @@ def final_view(state, w, h):
         with open('heli.txt') as file:
             heli = file.read()
         return 'YOU WIN!!!! Score: {}\n\n{}'.format(state.score, heli)
-    return '{}\nGame Over...'.format(str(state))
+    return '{}\nGame Over... you quit.'.format(str(state))
 
 
 def view(state, width, height):
@@ -59,7 +61,7 @@ def main():
         update,
         view,
         15,
-        quit_when=lambda s: (not s.keep_going()) or s.win,
+        quit_when=lambda s: s.quit or s.win,
         final_view=final_view)
 
 
