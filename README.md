@@ -35,6 +35,7 @@ def key_to_action(key):
 - Downn arrow:  Moves the helicopter one space down
 - Up arrow:  Moves the helicopter one space up
 - Space bar:  Makes the helicopter move faster and the points also increase faster
+- R or r:  Starts the game over again during the game or after the user looses
 
 ```python
 def main():
