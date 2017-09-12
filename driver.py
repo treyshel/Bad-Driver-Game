@@ -77,3 +77,7 @@ class Driver:
         x, y = self.car
         l, road, r = self.grid[-y]
         return x > l and x < (l + road)
+
+
+def date():
+    return time.strftime('%H:%M:%S, %B %d, 20%y')
