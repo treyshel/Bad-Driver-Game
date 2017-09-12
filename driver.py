@@ -10,6 +10,7 @@ class Driver:
         self.width = width
         self.height = height
         self.roadwidth = roadwidth
+        self.startwidth = roadwidth
         left = (width - roadwidth) // 2
         right = width - left - roadwidth
         self.grid = [(left, roadwidth, right) for _ in range(height)]
@@ -57,6 +58,8 @@ class Driver:
         ''' updates the grid with a new value and removes old value 
         returns self to completely update the state
         '''
+        if key == 'restart':
+            self = restart_game(self.width, self.height, self.startwidth)
         if self.roadwidth < 3:
             self.win = True
         x, y = self.car
@@ -96,3 +99,7 @@ class Driver:
         x, y = self.car
         l, road, r = self.grid[-y]
         return x > l and x < (l + road)
+
+
+def restart_game(width, height, startwidth):
+    return Driver(width, height, startwidth)
