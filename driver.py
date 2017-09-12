@@ -39,8 +39,6 @@ class Driver:
         for line in slice_bottom:
             s += 'I{}^{}^{}I\n'.format(line[0] * '.', line[1] * ' ',
                                        line[2] * '.')
-        # print the car
-        s += '{}🚗\n'.format(self.car[0] * ' ')
         return s
 
     def game_update(self, key):
