@@ -104,7 +104,7 @@ def view(state, width, height):
 
 
 def main():
-    run(driver.Driver(50, 20, 25), update, view, 15)
+    run(driver.Driver(50, 20, 12), update, view, 15)
 
 
 if __name__ == '__main__':
