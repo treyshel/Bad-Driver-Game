@@ -28,6 +28,8 @@ def key_to_action(key):
         return 'up'
     elif key == 'KEY_DOWN':
         return 'down'
+    elif key == 'SPACEBAR':
+        return 'spacebar'
     elif key == 'r' or key == 'R':
         return 'restart'
     elif key == 'TICK':
@@ -41,9 +43,11 @@ def update(key, state):
 
 
 def final_view(state, w, h):
-    return '''Game Over:
-Score: {}
-'''.format(state.score)
+    if state.win:
+        with open('heli.txt') as file:
+            heli = file.read()
+        return 'YOU WIN!!!! Score: {}\n\n{}'.format(state.score, heli)
+    return '{}\nGame Over...'.format(str(state))
 
 
 def view(state, width, height):
@@ -51,16 +55,12 @@ def view(state, width, height):
 
 
 def main():
-<<<<<<< HEAD
     run(driver.Driver(50, 20, 25),
         update,
         view,
         15,
-        quit_when=lambda s: not s.keep_going(),
+        quit_when=lambda s: (not s.keep_going()) or s.win,
         final_view=final_view)
-=======
-    run(driver.Driver(50, 20, 12), update, view, 15)
->>>>>>> 6a8830c46b0621cfbdfbeaf841611713744fa0b0
 
 
 if __name__ == '__main__':

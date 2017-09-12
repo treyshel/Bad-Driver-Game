@@ -17,9 +17,21 @@ class Driver:
         self.car = (width // 2 - 1, 2)
         self.score = 0
         self.level = 1
+        self.count = 0
+        self.win = False
 
     def __str__(self):
         ''' returns string version of grid '''
+        ch = 'o'
+        if self.roadwidth < 4:
+            ch = ' '
+        elif self.roadwidth < 6:
+            ch = '.'
+        elif self.roadwidth < 8:
+            ch = ':'
+        elif self.roadwidth < 12:
+            ch = '*'
+
         s = 'LEVEL: {} 🚁 HELI-ESCAPE 🚁 SCORE: {}'.format(
             self.level, self.score).center(self.width)
         s += '\n'
@@ -28,23 +40,25 @@ class Driver:
         slice_bottom = self.grid[(-self.car[1]):]
 
         for line in slice_top:
-            s += 'I{}^{}^{}I\n'.format(line[0] * '.', line[1] * ' ',
-                                       line[2] * '.')
+            s += 'I{}^{}^{}I\n'.format(line[0] * ch, line[1] * ' ',
+                                       line[2] * ch)
 
         l = self.car[0] - _car[0] - 1
         r = _car[1] - l - 2
         c = '{}🚁{}'.format(' ' * l, ' ' * r)
-        s += 'I{}^{}^{}I\n'.format(_car[0] * '.', c, _car[2] * '.')
+        s += 'I{}^{}^{}I\n'.format(_car[0] * ch, c, _car[2] * ch)
 
         for line in slice_bottom:
-            s += 'I{}^{}^{}I\n'.format(line[0] * '.', line[1] * ' ',
-                                       line[2] * '.')
+            s += 'I{}^{}^{}I\n'.format(line[0] * ch, line[1] * ' ',
+                                       line[2] * ch)
         return s
 
     def game_update(self, key):
         ''' updates the grid with a new value and removes old value 
         returns self to completely update the state
         '''
+        if self.roadwidth < 3:
+            self.win = True
         x, y = self.car
         if key == 'left':
             x -= 1
@@ -55,8 +69,13 @@ class Driver:
         elif key == 'down':
             y = max(y - 1, 2)
         self.car = (x, y)
-        self.score += 1
-        if not (self.score % 100):
+        self.score += y - 1
+        self.count += 1
+        if key in ['up', 'down', 'left', 'right']:
+            return self
+        if key == 'spacebar':
+            self.score += y - 1
+        if not (self.count % 50):
             self.level += 1
             self.roadwidth -= 1
         self.grid.pop()
