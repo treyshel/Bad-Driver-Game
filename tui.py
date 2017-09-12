@@ -51,12 +51,16 @@ def view(state, width, height):
 
 
 def main():
+<<<<<<< HEAD
     run(driver.Driver(50, 20, 25),
         update,
         view,
         15,
         quit_when=lambda s: not s.keep_going(),
         final_view=final_view)
+=======
+    run(driver.Driver(50, 20, 12), update, view, 15)
+>>>>>>> 6a8830c46b0621cfbdfbeaf841611713744fa0b0
 
 
 if __name__ == '__main__':
