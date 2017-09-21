@@ -45,6 +45,6 @@ def main():
 
 # Heli.txt
 
-Text file that contains an ascii
+Text file that contains an ascii helicopter
 - Displays the asii to the user once they win.
 
