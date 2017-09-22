@@ -1,12 +1,16 @@
 # Before Using
-install:
-pip3 install --user pybcca
+From the terminal install pybcca:<br>
+``` $ pip3 install --user pybcca ```<br>
+Within the pybcca library there is a *run* function that allows the data to be refreshed in the terminal. The game is set up based on an object representing the helicopter with vertical and horizontal coordinates, and the game field data is store a list of tuple coordinates.
 
 
 # Helicopter Escape
-This application stimulates a helicopter trying to get out of some mountains and escape.
-The goal is to try to escape and not crash.
-- The higher a user goal, the more points he or she gets.
+This application stimulates a helicopter trying to get out of some mountains and escape.<br>
+The goal is to try to escape and not crash.<br>
+* Score goes up the longer you stay alive
+* Your points multiply the closer you are to the top of the map
+* Spacebar is a turbo button that multiplies your score
+
 
 # Driver
 
